@@ -1,6 +1,13 @@
+#--------------------------------------------------------------------------------------------------------------------------------------------------#
+####################################################################################################################################################
+# Predict Stroke Page                                                                                                                              #
+# Developer Name: Loke Weng Khay                                                                                                                   #
+####################################################################################################################################################
+#--------------------------------------------------------------------------------------------------------------------------------------------------#
 import streamlit as st
 import pickle
 
+# Load up the machine learning model
 def load_model2():
     with open('Random_Forest_Stroke_Prediction.pkl', 'rb') as training_model:
         data = pickle.load(training_model)
@@ -8,6 +15,7 @@ def load_model2():
 
 data = load_model2()
 
+# function to convert all input into numerical before inserting to machine learning for prediction
 def convert_str_to_int(input):
     if(input=="Yes"):
         return 1
@@ -52,13 +60,14 @@ def smoking_status_to_int(input):
     elif (input=="Unknown"):
         return 4
 
-
+# Stroke Prediction Page
 def show_predict_stroke_page():
     
     st.title("Stroke Prediction System")
     st.write("""We will help to determine if you are suffering from Stroke""")
     st.warning("Warning: Please use at your own risk. Result may be inaccurate at certain times. The owner is not liable and won't bear responsibility if anyone suffers damages.")
 
+    # Options for dropdown boxes
     answer1 = {
         "Yes",
         "No"
@@ -84,6 +93,8 @@ def show_predict_stroke_page():
         "formerly smoked",
         "Unknown"
     }
+    
+    # Question and answer box which includes dropdown boxes, and sliders
     q1	= st.selectbox("1. Gender",answer3)
     q2	= st.slider("2. Age",1,121,25)
     q3 = st.selectbox("3. Hypertension",answer1)
@@ -97,6 +108,7 @@ def show_predict_stroke_page():
 
     Submit = st.button("Submit")
 
+    # Convert the input to numerical data by calling the fucntion before pushing to the machine learning for prediction
     hypertension=convert_str_to_int(q3)
     heart_disease=convert_str_to_int(q4)
     ever_married=convert_str_to_int(q5)
@@ -105,7 +117,7 @@ def show_predict_stroke_page():
     Residence_type=Residence_type_to_int(q7)
     smoking_status=smoking_status_to_int(q10)
 
-
+    # Converted data is inserted into the machine learning to obtain the result
     if Submit:
         predict_stroke = data.predict([[gender,q2,hypertension,heart_disease,ever_married,work_type,Residence_type,q8,q9,smoking_status]])
         if(predict_stroke==1):
