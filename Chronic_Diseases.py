@@ -128,7 +128,7 @@ def chronic_disease_page():
 ####################################################################################################################################################
 #--------------------------------------------------------------------------------------------------------------------------------------------------#
 def load_lung_cancer_dataset():
-    df1 = pd.read_csv('C:\\Users\\vince\\Desktop\\FYP Testing\\Lung Cancer\\survey lung cancer.csv')
+    df1 = pd.read_csv('survey lung cancer.csv')
     df1 = df1.set_axis(['Gender', 'Age', 'Smoking', 'Yellow_Fingers', 'Anxiety',
                     'Peer_Pressure', 'Chronic_Disease', 'Fatigue', 'Allergy', 'Wheezing',
                     'Alcohol_Consumption', 'Coughing', 'Shortness_Of_Breath',
@@ -142,7 +142,7 @@ def load_lung_cancer_dataset():
 ####################################################################################################################################################
 #--------------------------------------------------------------------------------------------------------------------------------------------------#
 def load_stroke_dataset():
-    df2 = pd.read_csv('C:\\Users\\vince\\Desktop\\FYP Testing\\Stroke\\healthcare-dataset-stroke-data.csv')
+    df2 = pd.read_csv('healthcare-dataset-stroke-data.csv')
 
     df3=df2[(df2['gender']=='Male') | (df2['gender']=='Female')]
     del df3['id']
@@ -175,8 +175,8 @@ def load_stroke_dataset():
 #--------------------------------------------------------------------------------------------------------------------------------------------------#
 def load_heart_disease_dataset():
     
-    df4 = pd.read_csv('C:\\Users\\vince\\Desktop\\FYP Testing\\Final_System\\heart.csv')
-    df5 = pd.read_csv('C:\\Users\\vince\\Desktop\\FYP Testing\\Final_System\\heart2.csv')
+    df4 = pd.read_csv('heart.csv')
+    df5 = pd.read_csv('heart2.csv')
     df5 = df5.set_axis(['Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol',
           'FastingBS', 'RestingECG', 'MaxHR', 'ExerciseAngina', 'Oldpeak',
           'ST_Slope', 'CA', 'THAL','HeartDisease'], axis=1, inplace=False)
