@@ -1,6 +1,13 @@
+#--------------------------------------------------------------------------------------------------------------------------------------------------#
+####################################################################################################################################################
+# Predict Lung Cancer Page                                                                                                                         #
+# Developer Name: Loke Weng Khay                                                                                                                   #
+####################################################################################################################################################
+#--------------------------------------------------------------------------------------------------------------------------------------------------#
 import streamlit as st
 import pickle
 
+# Load up the machine learning model
 def load_model():
     with open('Support_Vector_Machine_Lung_Cancer_1.pkl', 'rb') as training_model:
         data = pickle.load(training_model)
@@ -8,6 +15,7 @@ def load_model():
 
 data = load_model()
 
+# function to convert all input into numerical before inserting to machine learning for prediction
 def convert_str_to_int(input):
     if(input=="Yes"):
         return 2
@@ -21,13 +29,14 @@ def gender_to_int(input):
     elif (input=="Female"):
         return 0
 
-
+# Lung Cancer Prediction Page
 def show_predict_lung_cancer_page():
     
     st.title("Lung Cancer Prediction System")
     st.write("""We will help to determine if you are suffering from Lung Cancer""")
     st.warning("Warning: Please use at your own risk. Result may be inaccurate at certain times. The owner is not liable and won't bear responsibility if anyone suffers damages.")
-
+    
+    # Options for dropdown boxes
     answer1 = {
         'No',
         'Yes'
@@ -36,6 +45,8 @@ def show_predict_lung_cancer_page():
         "Male",
         "Female"
     }
+    
+    # Question and answer box which includes dropdown boxes, and sliders
     q1	= st.selectbox("1. Gender",answer2)
     q2	= st.slider("2. Age",1,121,25)
     q3 = st.selectbox("3. Smoking",answer1)
@@ -54,7 +65,7 @@ def show_predict_lung_cancer_page():
 
     Submit = st.button("Submit")
 
-    # convert string into integers
+    # Convert the input to numerical data by calling the fucntion before pushing to the machine learning for prediction
     gender=gender_to_int(q1)
     smoking=convert_str_to_int(q3)
     yellow_fingers=convert_str_to_int(q4)
@@ -70,7 +81,7 @@ def show_predict_lung_cancer_page():
     shallowing_discomfort=convert_str_to_int(q14)
     chest_pain=convert_str_to_int(q15)
 
-    #Converted data is inserted into the machine learning to obtain the result
+    # Converted data is inserted into the machine learning to obtain the result
     if Submit:
         predict_stroke = data.predict([[gender,q2,smoking,yellow_fingers,anxiety,peer_pressure,chronic_disease,
         fatigue,allergy,wheezing,alcohol_consistency,coughing,shortness_of_breath,shallowing_discomfort,chest_pain]])
