@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 from PIL import Image
 
+# Load up the machine learning model
 def load_model():
     with open('Hyperparameter_Tuning_Random_Forest_Heart_Diseases.pkl', 'rb') as training_model:
         data = pickle.load(training_model)
@@ -9,6 +10,7 @@ def load_model():
 
 data = load_model()
 
+# convert all input into numerical before inserting to machine learning for prediction
 def convert_str_to_int(input):
     if(input=="Yes"):
         return 1
@@ -49,13 +51,14 @@ def ST_Slope_to_int(input):
     elif (input=="Downsloping"):
         return 3
 
-
+# Heart Disease Prediction Page
 def show_predict_heart_disease_page():
     ST_slope_image = Image.open('ST_Segment.png')
     st.title("Heart Disease Prediction System")
     st.write("""We will help to determine if you are suffering from heart disease""")
     st.warning("Warning: Please use at your own risk. Result may be inaccurate at certain times. The owner is not liable and won't bear responsibility if anyone suffers damages.")
 
+    # Options for dropdown boxes
     answer1 = {
         "No",
         "Yes"
@@ -80,6 +83,8 @@ def show_predict_heart_disease_page():
         "Flat",
         "Downsloping",
     }
+    
+    # Qestion and answer box which includes dropdown boxes, and sliders 
     q1	= st.slider("1. Age",1,121,25)
     q2	= st.selectbox("2. Sex",answer3)
     q3 = st.selectbox("3. What type of chest pain",answer2)
@@ -106,7 +111,8 @@ def show_predict_heart_disease_page():
 
 
     Submit = st.button("Submit")
-
+    
+    # Convert the input to numerical data by calling the fucntion before pushing to the machine learning for prediction
     FastingBS=convert_str_to_int(q6)
     ExerciseAngina=convert_str_to_int(q9)
     ChestPainType=convert_chest_pain_to_int(q3)
@@ -114,6 +120,7 @@ def show_predict_heart_disease_page():
     RestingECG=resting_ecg_to_int(q7)
     ST_Slope=ST_Slope_to_int(q11)
 
+    # Insert data into machine learning and get result
     if Submit:
         predict_heart_disease = data.predict([[q1,Sex,ChestPainType,q4,q5,FastingBS,RestingECG,q8,ExerciseAngina,q10,ST_Slope]])
         if(predict_heart_disease==1):
