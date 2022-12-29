@@ -51,7 +51,7 @@ def ST_Slope_to_int(input):
 
 
 def show_predict_heart_disease_page():
-    ST_slope_image = Image.open('St_Segment.png')
+    ST_slope_image = Image.open('ST_Segment.png')
     st.title("Heart Disease Prediction System")
     st.write("""We will help to determine if you are suffering from heart disease""")
     st.warning("Warning: Please use at your own risk. Result may be inaccurate at certain times. The owner is not liable and won't bear responsibility if anyone suffers damages.")
